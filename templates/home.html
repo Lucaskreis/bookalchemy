@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Home Page</title>
+    <style>
+        body {
+            text-align: center;
+            margin: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            font-size: 16px;
+            text-align: center;
+            text-decoration: none;
+            background-color: #007BFF;
+            color: #fff;
+            border-radius: 5px;
+            margin: 10px;
+        }
+
+        .book-list {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to the Home Page</h1>
+
+    <a href="/add_author" class="btn">Add Author</a>
+    <a href="/add_book" class="btn">Add Book</a>
+
+    <div class="search-form">
+        <form action="/" method="GET">
+            <label for="search">Search:</label>
+            <input type="text" id="search" name="search" placeholder="Enter search term">
+            <input type="submit" value="Search" class="btn">
+        </form>
+    </div>
+
+    <div class="sorting-buttons">
+        <p>Sort by:</p>
+        <a href="/?sort=title" class="btn">Title</a>
+        <a href="/?sort=author" class="btn">Author</a>
+    </div>
+
+    <div class="book-list">
+    <div class="book-list">
+        <h2>Book List</h2>
+        <ul>
+            {% for book in books_list %}
+                <li>{{ book.title }} by {{ book.author }}
+                    <form action="{{ url_for('delete_book', book_id=book.id) }}" method="post" style="display: inline;">
+                        <input type="submit" value="Delete Book" class="btn">
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="author-list">
+        <h2>Author List</h2>
+        <ul>
+            {% for author in authors_list %}
+                <li>{{ author.name }}
+                    <form action="{{ url_for('delete_author', author_id=author.id) }}" method="post" style="display: inline;">
+                        <input type="submit" value="Delete Author" class="btn">
+                    </form>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+</body>
+</html>
